@@ -8,7 +8,6 @@ Kemacetan lalu lintas di jalan raya menimbulkan kerugian ekonomi yang mencapai m
 
 **Mengapa dan Bagaimana Masalah Diselesaikan**: Manajemen lalu lintas yang buruk dapat berdampak luas ke berbagai faktor dalam suatu negara. Maka, sistem prediktif yang mampu mengestimasi lalu lintas secara akurat dibutuhkan untuk merencanakan manajemen lalu lintas yang lebih tepat. Dengan pendekatan data-driven, solusi ini menjadi lebih terukur dan dapat diintegrasikan dalam sistem transportasi[^2]. 
 
-**Referensi**:  
 [^1]: Federal Highway Administration. (2020)."Congestion & Reliability." https://ops.fhwa.dot.gov/congestion_report/  
 [^2]: Zheng, Z., et al. (2017). "Urban traffic prediction through transportation data analysis." IEEE Transactions on Big Data.
 
