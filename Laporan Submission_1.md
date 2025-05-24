@@ -99,18 +99,12 @@ Model yang Digunakan:
 
 ## Evaluation
 Metrik Evaluasi yang digunakan:
-- MAE (Mean Absolute Error): Mengukur rata-rata kesalahan absolut antara nilai aktual dan nilai prediksi. Metrik ini memberikan gambaran langsung seberapa jauh prediksi model dari data sebenarnya secara rata-rata, tanpa mempertimbangkan arah kesalahan (positif atau negatif). MAE mudah dipahami dan tahan terhadap outlier kecil, tetapi tidak memberikan penalti lebih besar untuk kesalahan besar.
-$$
-\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
-$$
-- MSE (Mean Squared Error): Mengukur rata-rata dari kuadrat selisih antara nilai aktual dan prediksi. Karena selisihnya dikuadratkan, MSE memberikan penalti lebih besar terhadap kesalahan besar. MSE sangat berguna jika kita ingin meminimalkan kesalahan besar dalam model prediksi.
-$$
-\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
-$$
-- RMSE (Root Mean Squared Error): Akar dari MSE dan memiliki satuan yang sama dengan target (`traffic_volume`), sehingga lebih mudah diinterpretasikan dalam konteks dunia nyata. RMSE juga memberikan penalti lebih besar untuk kesalahan prediksi yang besar, dan sering dipakai untuk membandingkan performa model secara umum dalam kasus regresi.
-$$
-\text{RMSE} = \sqrt{\text{MSE}}
-$$
+- MAE (Mean Absolute Error): Mengukur rata-rata kesalahan absolut antara nilai aktual dan nilai prediksi. Metrik ini memberikan gambaran langsung seberapa jauh prediksi model dari data sebenarnya secara rata-rata, tanpa mempertimbangkan arah kesalahan (positif atau negatif). MAE mudah dipahami dan tahan terhadap outlier kecil, tetapi tidak memberikan penalti lebih besar untuk kesalahan besar.  
+$$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|$$
+- MSE (Mean Squared Error): Mengukur rata-rata dari kuadrat selisih antara nilai aktual dan prediksi. Karena selisihnya dikuadratkan, MSE memberikan penalti lebih besar terhadap kesalahan besar. MSE sangat berguna jika kita ingin meminimalkan kesalahan besar dalam model prediksi.  
+$$\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
+- RMSE (Root Mean Squared Error): Akar dari MSE dan memiliki satuan yang sama dengan target (`traffic_volume`), sehingga lebih mudah diinterpretasikan dalam konteks dunia nyata. RMSE juga memberikan penalti lebih besar untuk kesalahan prediksi yang besar, dan sering dipakai untuk membandingkan performa model secara umum dalam kasus regresi.  
+$$\text{RMSE} = \sqrt{\text{MSE}}$$
 
 | Model        | RMSE (Train) | MAE (Train) | RMSE (Test) | MAE (Test) |
 |--------------|--------------|-------------|-------------|------------|
