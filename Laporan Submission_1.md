@@ -46,6 +46,11 @@ Sumber Data: [UCI Machine Learning Repository](https://archive.ics.uci.edu/datas
     - weather_description: deskripsi cuaca lengkap (kategorik)
     - traffic_volume: volume lalu lintas per jam dengan satuan kendaraan (numerik)
 
+### Kondisi Data Awal:
+- Missing Values di deteksi dengan `traffic.isnull().sum()` dan diperoleh bahwa pada dataset tidak terdapat Missing Values
+- Data duplikat di deteksi dengan `traffic.duplicated().sum())` dan terdapat 17 data duplikat
+- Berdasarkan boxplot, pada variabel `temp` terdapat 10 outlier, pada variabel `rain_1h` terdapat 3467 outlier, dan pada variabel `snow_1h` terdapat 63 outlier
+
 ### Exploratory Data Analysis and Visualization:
 - ![Rata-rata lalu lintas berdasarkan hari libur](https://drive.google.com/uc?export=view&id=1N1XU7W1hpPOjqVp__RxBcVvfHhZ8v-jy)  
 Berdasarkan plot, rata-rata kepadatan lalu lintas terbanyak terjadi ketika libur Tahun Baru yang mencapai hampir 1500 kendaraan setiap jam
@@ -71,24 +76,41 @@ Model yang Digunakan:
 1. SARIMAX (Seasonal ARIMA with Exogenous Variables):
 - Model baseline yang mempertimbangkan komponen musiman dan pengaruh variabel cuaca.
 - Digunakan sebagai pembanding model machine learning.
+- Parameter yang digunakan sebagai berikut:
+  - `order=(p=1,d=1,q=1)`: p adalah notasi untuk Autoregressive (AR), d notasi Differencing (I), dan q notasi Moving Average (MA)
+  - `seasonal_order=(P=1,D=1,Q=1,S=7)`: sama seperti sebelumnya p,d,q adalah ARIMA dan S adalah notasi untuk musiman, pada analisis ini mingguan maka S=7
 - Kelebihan: Dapat menangkap tren dan musiman eksplisit.
 - Kekurangan: Kurang fleksibel dalam menangani data non-stasioner dan non-linear.
 2. XGBoost Regressor:
 - Model boosting berbasis pohon keputusan dengan performa tinggi.
+- Parameter yang digunakan sebagai berikut:
+  - `n_estimators=100`: jumlah pohon yang digunakan 100
+  - `learning_rate=0.1`: kecepatan pembelajaran tiap iterasi adalah 0.1
+  - `max_depth=6`: kompleksitas model sebesar 6
 - Kelebihan: Menangani missing value, non-linearitas, dan pentingnya fitur.
 - Kekurangan: Lebih lambat dibanding LightGBM untuk dataset besar.
 3. LightGBM Regressor:
 - Alternatif boosting dengan kecepatan pelatihan lebih tinggi.
+- Parameter yang digunakan adaalah konfigurasi default `random_state=42`
 - Kelebihan: Lebih cepat dari XGBoost, efisien untuk dataset besar.
 - Kekurangan: Sensitif terhadap outlier jika tidak ditangani sebelumnya.  
 
-**Model Terbaik**: XGBoost terpilih sebagai model terbaik berdasarkan metrik MSE, dan memberi prediksi yang paling mendekati nilai sesungguhnya
+**Model Terbaik**: XGBoost terpilih sebagai model terbaik berdasarkan metrik RMSE, MAE, dan MSE, dan memberi prediksi yang paling mendekati nilai sesungguhnya
 
 ## Evaluation
 Metrik Evaluasi yang digunakan:
 - MAE (Mean Absolute Error): Mengukur rata-rata kesalahan absolut antara nilai aktual dan nilai prediksi. Metrik ini memberikan gambaran langsung seberapa jauh prediksi model dari data sebenarnya secara rata-rata, tanpa mempertimbangkan arah kesalahan (positif atau negatif). MAE mudah dipahami dan tahan terhadap outlier kecil, tetapi tidak memberikan penalti lebih besar untuk kesalahan besar.
+$$
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+$$
 - MSE (Mean Squared Error): Mengukur rata-rata dari kuadrat selisih antara nilai aktual dan prediksi. Karena selisihnya dikuadratkan, MSE memberikan penalti lebih besar terhadap kesalahan besar. MSE sangat berguna jika kita ingin meminimalkan kesalahan besar dalam model prediksi.
-- RMSE (Root Mean Squared Error): Akar dari MSE dan memiliki satuan yang sama dengan target (traffic volume), sehingga lebih mudah diinterpretasikan dalam konteks dunia nyata. RMSE juga memberikan penalti lebih besar untuk kesalahan prediksi yang besar, dan sering dipakai untuk membandingkan performa model secara umum dalam kasus regresi.
+$$
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+$$
+- RMSE (Root Mean Squared Error): Akar dari MSE dan memiliki satuan yang sama dengan target (`traffic_volume`), sehingga lebih mudah diinterpretasikan dalam konteks dunia nyata. RMSE juga memberikan penalti lebih besar untuk kesalahan prediksi yang besar, dan sering dipakai untuk membandingkan performa model secara umum dalam kasus regresi.
+$$
+\text{RMSE} = \sqrt{\text{MSE}}
+$$
 
 | Model        | RMSE (Train) | MAE (Train) | RMSE (Test) | MAE (Test) |
 |--------------|--------------|-------------|-------------|------------|
